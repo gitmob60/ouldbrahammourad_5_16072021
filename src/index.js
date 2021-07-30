@@ -17,9 +17,16 @@ fetch(url).then(response =>
         //-- 
         console.log(data);
         //-- 
-     
+  
         for (let article of data) {
-            let blocArticle = '<div class="blocArticle">';
+            let referenceProduit = article._id;
+            let urlProduit = `http://localhost:8080/produit.html`; 
+            urlProduit +=  `?reference=`; 
+            urlProduit += referenceProduit;  
+             //-- 
+             console.log(urlProduit);
+            //--                    
+            let blocArticle = `<a class="lienProduit" href=${urlProduit}><div class="blocArticle">`;
             blocArticle += `<p>nom : ${article.name}</p>`; 
             blocArticle += `<p>prix : ${article.price}</p>`;  
             blocArticle += `<p>description : ${article.description}</p>`; 
@@ -33,11 +40,12 @@ fetch(url).then(response =>
             blocArticle += blocOptions;                   
             blocArticle += `<p><img src="${article.imageUrl}" alt="photo article"></p>`;             
                 
-            blocArticle += '</div>';
+            blocArticle += '</div></a>';
             //-- 
             console.log(blocArticle);
             //--
-            app += blocArticle;                      
+            app += blocArticle; 
+            
         }
         body.innerHTML = app; 
      
